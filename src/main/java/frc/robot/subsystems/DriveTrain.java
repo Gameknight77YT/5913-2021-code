@@ -55,6 +55,8 @@ public class DriveTrain extends SubsystemBase {
   leftMaster.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
   rightMaster.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
 
+  leftMaster.setSensorPhase(true);
+
   leftMaster.clearStickyFaults(10);
   rightMaster.clearStickyFaults(10);
 

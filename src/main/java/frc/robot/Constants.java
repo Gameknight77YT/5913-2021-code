@@ -55,6 +55,8 @@ public final class Constants {
   public static final int releaseElevatorButtonID = 6;
   public static final int ActivateTurnTurret = 4;
   public static final int intakeAndShootButtonID = 10;
+  public static final int driveBackwardButtonID = 9;
+  public static final int driveForwardButtonID = 11;
 
   // speeds
   public static final double speedX = .85;
@@ -108,7 +110,5 @@ public final class Constants {
   // other constants
   public static final double WheelDiameter = 6;
   public static final double EncoderConstant = 668.897;
-public static final int driveBackwardButtonID = 0;
-public static final int driveForwardButtonID = 0;
 
 }
