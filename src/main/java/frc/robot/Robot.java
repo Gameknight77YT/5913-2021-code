@@ -31,7 +31,6 @@ import frc.robot.subsystems.Elevator;
  */
 public class Robot extends TimedRobot {
   private Command autonomousCommand;
-
   private RobotContainer container;
   private Timer timer;
   private Timer timer2;
@@ -52,8 +51,7 @@ public class Robot extends TimedRobot {
     calibrate();
     resetGyro();
     // Instantiate our RobotContainer. This will perform all our button bindings,
-    // and put our
-    // autonomous chooser on the dashboard.
+    // and put our autonomous chooser on the dashboard.
     container = new RobotContainer();
     timer = new Timer();
     timer2 = new Timer();
