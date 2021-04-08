@@ -60,7 +60,7 @@ public final class Constants {
 
   // speeds
   public static final double speedX = .85;
-  public static final double speedY = .75;
+  public static final double speedY = .45;
   public static final double AutonomousSpeed = 0.5;
   public static final double TurretSpeed = -.35;
   public static final double elevatorspeed = .4;

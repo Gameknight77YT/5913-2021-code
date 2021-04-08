@@ -133,16 +133,16 @@ public class DriveTrain extends SubsystemBase {
 
   public void DriveWithJoystick(Joystick driverJoystick) {
     // Forward, and swing turns: (both abs(X) and abs(Y) are above the threshold, and Y is POSITIVE)
-    double joy_y = driverJoystick.getRawAxis(Constants.driverjoystickX)*Constants.speedX;
-    double joy_x = driverJoystick.getRawAxis(Constants.driverjoystickY)*Constants.speedY;
+    double joyX = driverJoystick.getRawAxis(Constants.driverjoystickX)*Constants.speedY;
+    double joyY = driverJoystick.getRawAxis(Constants.driverjoystickY)*Constants.speedX;
     double threshold = .2;
     double leftMotorOutput;
     double rightMotorOutput;
 
-    double xSpeed = MathUtil.clamp(joy_x, -1.0, 1.0);
-    xSpeed = applyDeadband(joy_x, threshold);
-    double zRotation = MathUtil.clamp(joy_y, -1.0, 1.0);
-    zRotation = applyDeadband(joy_y, threshold);
+    double xSpeed = MathUtil.clamp(joyY, -1.0, 1.0);
+    xSpeed = applyDeadband(joyY, threshold);
+    double zRotation = MathUtil.clamp(joyX, -1.0, 1.0);
+    zRotation = applyDeadband(joyX, threshold);
     double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
     if (xSpeed >= 0.0) {
       // First quadrant, else second quadrant
