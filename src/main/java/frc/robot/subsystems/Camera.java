@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Camera extends SubsystemBase {
-  
+
   //networktables
   final NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   final NetworkTableEntry tx = table.getEntry("tx");
@@ -27,7 +27,7 @@ public class Camera extends SubsystemBase {
   final NetworkTableEntry ta = table.getEntry("ta");
   final NetworkTableEntry ledMode = table.getEntry("ledMode");
 
-  private boolean limelightHasValidTarget = false;
+  boolean limelightHasValidTarget = false;
   private double m_LimelightSteerCommand = 0.0;
   WPI_TalonSRX turretControl = new WPI_TalonSRX(Constants.TurretControlID);
   CameraServer server;

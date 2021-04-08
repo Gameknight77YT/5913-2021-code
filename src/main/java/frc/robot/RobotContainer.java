@@ -18,14 +18,11 @@ import frc.robot.commands.ControlWithJoystick;
 import frc.robot.commands.DriveBackward;
 import frc.robot.commands.DriveForward;
 import frc.robot.commands.DriveWithJoysticks;
-import frc.robot.commands.ElevatorDown;
-import frc.robot.commands.ElevatorUp;
 import frc.robot.commands.FeedBall;
 import frc.robot.commands.IntakeAndShoot;
 import frc.robot.commands.IntakeArmsDown;
 import frc.robot.commands.IntakeArmsUp;
 import frc.robot.commands.IntakeBall;
-import frc.robot.commands.ReleaseElevator;
 import frc.robot.commands.ShootBall1;
 import frc.robot.commands.ShootBall2;
 import frc.robot.commands.ShootBall3;
@@ -59,9 +56,6 @@ public class RobotContainer {
   //commands
   private final DriveWithJoysticks driveWithJoystick;
   private final ControlWithJoystick controlWithJoystick;
-  private final ElevatorDown elevatordown;
-  private final ElevatorUp elevatorup;
-  private final ReleaseElevator releaseElevator;
   private final IntakeBall intakeball;
   private final SpitOutBall spitoutball;
   private final FeedBall feedball;
@@ -112,12 +106,6 @@ public class RobotContainer {
     controlWithJoystick = new ControlWithJoystick(camera);
     controlWithJoystick.addRequirements(camera);
     camera.setDefaultCommand(controlWithJoystick);
-    elevatorup = new ElevatorUp(elevator);
-    elevatorup.addRequirements(elevator);
-    elevatordown = new ElevatorDown(elevator);
-    elevatordown.addRequirements(elevator);
-    releaseElevator = new ReleaseElevator(elevator);
-    releaseElevator.addRequirements(elevator);
     intakeball = new IntakeBall(intake);
     intakeball.addRequirements(intake);
     spitoutball = new SpitOutBall(intake);
@@ -169,15 +157,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
-    JoystickButton ElevatorUpButton = new JoystickButton(driverJoystick, (Constants.elevatorUpButtonID));
-    ElevatorUpButton.whileHeld(new ElevatorUp(elevator));//brings elevator up
-
-    JoystickButton releaseElevatorButton = new JoystickButton(driverJoystick, (Constants.releaseElevatorButtonID));
-    releaseElevatorButton.whileHeld(new ReleaseElevator(elevator));
- 
-    JoystickButton ElevatorDownButton = new JoystickButton(driverJoystick, (Constants.elevatorDownButtonID));
-    ElevatorDownButton.whileHeld(new ElevatorDown(elevator));//brings elevator down
 
     JoystickButton IntakeBallButton = new JoystickButton(manipulatorJoystick, Constants.IntakeBallButtonID);
     IntakeBallButton.whileHeld(new IntakeBall(intake));//intake ball

@@ -6,16 +6,15 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 public class Elevator extends SubsystemBase {
 
@@ -27,15 +26,12 @@ public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
   public Elevator() {
 
-    
     elevatorSlave.follow(elevatorMaster);
 
-    elevatorSlave.setInverted(InvertType.FollowMaster);
     //init encoder
     elevatorMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
     
     elevatorMaster.setSelectedSensorPosition(0);
-    elevatorMaster.setInverted(true);
   }
 
   @Override
@@ -43,29 +39,24 @@ public class Elevator extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("ElevatorEncoder", getElevatorEncoderPosition());
   }
-
-  public void elevatorup(double speed) {
-    if(RobotContainer.driverJoystick.getRawButton(Constants.releaseElevatorButtonID)==true){
-    elevatorMaster.set(ControlMode.PercentOutput, speed);
+   public void ControlElevator(Joystick manipulatorJoystick){
+    double elevatorSpeed = 0; 
+    if (manipulatorJoystick.getRawButton(Constants.releaseElevatorButtonID)==true //up
+    && manipulatorJoystick.getRawButton(Constants.elevatorUpButtonID)){
+      elevatorSpeed = 1;
     }
-  }
-  
-  public void ReleaseElevator(){
-    ratchetArm.set(Value.kReverse);
-  }
-
-  public void elevatordown(double speed) {
-    elevatorMaster.set(ControlMode.PercentOutput, -speed);
-    ratchetArm.set(Value.kForward);
-  }
-
-  public void elevatorstop() {
-    elevatorMaster.set(0);
-  }
-
-  public void RatchetOff(){
+    if (manipulatorJoystick.getRawButton(Constants.elevatorDownButtonID)==true){  //down
+      elevatorSpeed = -1;
+    }
+    elevatorMaster.set(ControlMode.PercentOutput, elevatorSpeed);
     ratchetArm.set(Value.kOff);
+  if (manipulatorJoystick.getRawButton(Constants.releaseElevatorButtonID)==true){
+      ratchetArm.set(Value.kReverse);
+  }    
+  if (manipulatorJoystick.getRawButton(Constants.elevatorDownButtonID)==true){
+      ratchetArm.set(Value.kForward);
   }
+   }
 
   public  double getElevatorEncoderPosition() {
 	return elevatorMaster.getSelectedSensorPosition();
