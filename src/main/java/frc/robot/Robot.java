@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -81,9 +80,6 @@ public class Robot extends TimedRobot {
   }
 
   public void InitTrajectorys() {
-    TrajectoryConfig Defaultconfig = new TrajectoryConfig(Constants.kMaxSpeedMetersPerSecond,
-        Constants.kMaxAccelerationMetersPerSecondSquared);
-    Defaultconfig.setKinematics(driveTrain.getKinematics());
     try {
       Path DefaulttrajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/Test.wpilib.json");
       DefaultTrajectory = TrajectoryUtil.fromPathweaverJson(DefaulttrajectoryPath);
@@ -91,9 +87,6 @@ public class Robot extends TimedRobot {
       DriverStation.reportError("Unable to open trajectory: " + "paths/Test.wpilib.json", ex.getStackTrace());
     }
 
-    TrajectoryConfig Game1config = new TrajectoryConfig(Constants.kMaxSpeedMetersPerSecond,Constants.kMaxAccelerationMetersPerSecondSquared);
-      Game1config.setKinematics(driveTrain.getKinematics());
-      
        String Game1JSON = "paths/Game1.wpilib.json";
      try {
       Path Game1Path = Filesystem.getDeployDirectory().toPath().resolve(Game1JSON);
@@ -102,9 +95,6 @@ public class Robot extends TimedRobot {
       DriverStation.reportError("Unable to open trajectory: " + Game1JSON, ex.getStackTrace());
      }
 
-   TrajectoryConfig Game2config = new TrajectoryConfig(Constants.kMaxSpeedMetersPerSecond,Constants.kMaxAccelerationMetersPerSecondSquared);
-      Game2config.setKinematics(driveTrain.getKinematics());
-      
        String Game2JSON = "paths/Game2.wpilib.json";
      try {
       Path Game2Path = Filesystem.getDeployDirectory().toPath().resolve(Game2JSON);
@@ -113,9 +103,6 @@ public class Robot extends TimedRobot {
       DriverStation.reportError("Unable to open trajectory: " + Game2JSON, ex.getStackTrace());
      }
 
-   TrajectoryConfig GameDefaultconfig = new TrajectoryConfig(Constants.kMaxSpeedMetersPerSecond,Constants.kMaxAccelerationMetersPerSecondSquared);
-      GameDefaultconfig.setKinematics(driveTrain.getKinematics());
-      
        String GameDefaultJSON = "paths/GameDefault.wpilib.json";
      try {
       Path GameDefaultPath = Filesystem.getDeployDirectory().toPath().resolve(GameDefaultJSON);
