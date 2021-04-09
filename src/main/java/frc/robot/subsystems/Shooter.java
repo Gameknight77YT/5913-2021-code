@@ -52,26 +52,31 @@ public class Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  /** Shoots Ball with Speed Preset 1  */
   public void ShootBallSpeed1(double speed) {
     mainShooter.set(ControlMode.Velocity, speed);
     topShooter.set(ControlMode.Velocity, (speed*-1) - 3000);
   }
 
+  /** Shoots Ball with Speed Preset 2  */
   public void ShootBallSpeed2(double speed) {
     mainShooter.set(ControlMode.Velocity, speed);
     topShooter.set(ControlMode.Velocity, (speed *-1)+ 1000);
   }
 
+  /** Shoots Ball with Speed Preset 3  */
   public void ShootBallSpeed3(double speed) {
     mainShooter.set(ControlMode.Velocity, speed);
     topShooter.set(ControlMode.Velocity, speed *-1);
   }
 
+  /** Shoots Ball with Speed Preset 4  */
   public void ShootBallSpeed4(double speed) {
     mainShooter.set(ControlMode.Velocity, speed);
     topShooter.set(ControlMode.Velocity, (speed *-1)+500);
   }
 
+  /** Stops Shooter */
   public void StopShooter(){
     mainShooter.stopMotor();
     topShooter.stopMotor();

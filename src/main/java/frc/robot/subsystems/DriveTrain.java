@@ -139,7 +139,7 @@ public class DriveTrain extends SubsystemBase {
 
   
 
-
+  /** Makes Robot Go Brrrrrrr */
   public void DriveWithJoystick(Joystick driverJoystick) {
     //robotDrive.arcadeDrive(driverJoystick.getRawAxis(Constants.driverjoystickX)*Constants.speedX,driverJoystick.getRawAxis(Constants.driverjoystickY)*Constants.speedY);
     // Forward, and swing turns: (both abs(X) and abs(Y) are above the threshold, and Y is POSITIVE)
@@ -177,7 +177,8 @@ public class DriveTrain extends SubsystemBase {
     rightMotors.set(MathUtil.clamp(rightMotorOutput, -1.0, 1.0) * 1);
   }
   
-  protected double applyDeadband(double value, double deadband) {
+  /** Applys a Deadband */
+  public double applyDeadband(double value, double deadband) {
     if (Math.abs(value) > deadband) {
       if (value > 0.0) {
         return (value - deadband) / (1.0 - deadband);

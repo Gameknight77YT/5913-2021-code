@@ -49,10 +49,10 @@ public class Elevator extends SubsystemBase {
       }
       elevatorMaster.set(ControlMode.PercentOutput, elevatorSpeed);
     ratchetArm.set(Value.kOff);
-    if (manipulatorJoystick.getRawButton(Constants.releaseElevatorButtonID)==true){
+    if (manipulatorJoystick.getRawButton(Constants.releaseElevatorButtonID)==true){ //release 
         ratchetArm.set(Value.kReverse);
     }    
-    if (manipulatorJoystick.getRawButton(Constants.elevatorDownButtonID)==true){
+    if (manipulatorJoystick.getRawButton(Constants.elevatorDownButtonID)==true){ //down
         ratchetArm.set(Value.kForward);
     }
   }
