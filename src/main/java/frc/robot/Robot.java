@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Elevator;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -35,7 +34,6 @@ public class Robot extends TimedRobot {
   private Timer timer;
   private Timer timer2;
   private DriveTrain driveTrain;
-  private Elevator elevator;
   static Trajectory DefaultTrajectory = new Trajectory();
   static Trajectory Game1 = new Trajectory();
   static Trajectory Game2 = new Trajectory();
@@ -51,12 +49,12 @@ public class Robot extends TimedRobot {
     calibrate();
     resetGyro();
     // Instantiate our RobotContainer. This will perform all our button bindings,
-    // and put our autonomous chooser on the dashboard.
+    // and put our
+    // autonomous chooser on the dashboard.
     container = new RobotContainer();
     timer = new Timer();
     timer2 = new Timer();
     driveTrain = new DriveTrain();
-    elevator = new Elevator();
     SmartDashboard.putData(CommandScheduler.getInstance());
     // init Trajectorys
     InitTrajectorys();
@@ -84,7 +82,6 @@ public class Robot extends TimedRobot {
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + "paths/Test.wpilib.json", ex.getStackTrace());
     }
-
        String Game1JSON = "paths/Game1.wpilib.json";
      try {
       Path Game1Path = Filesystem.getDeployDirectory().toPath().resolve(Game1JSON);
@@ -164,7 +161,7 @@ public class Robot extends TimedRobot {
     timer.reset();
     timer.start();
     driveTrain.SetMotorMode(1);
-    container.getAutonomousCommand().schedule();
+    container.getAutonomousCommand().schedule();    
   }
 
   /** This function is called periodically during autonomous. */
@@ -191,7 +188,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     //driveTrain.DriveWithJoystick(RobotContainer.driverJoystick);
-    elevator.ControlElevator(RobotContainer.manipulatorJoystick);
+
   }
 
   @Override

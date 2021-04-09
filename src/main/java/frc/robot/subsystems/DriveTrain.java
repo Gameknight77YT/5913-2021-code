@@ -32,6 +32,8 @@ public class DriveTrain extends SubsystemBase {
   SpeedControllerGroup leftMotors = new SpeedControllerGroup(leftMaster, leftSlave);
   SpeedControllerGroup rightMotors = new SpeedControllerGroup(rightMaster, rightSlave);
 
+  //DifferentialDrive robotDrive = new DifferentialDrive(leftMaster, rightMaster);
+
   DifferentialDriveKinematics Kinematics = new DifferentialDriveKinematics(Constants.WheelBaseWith);
   DifferentialDriveOdometry Odometry = new DifferentialDriveOdometry(Robot.getHeading());
 
@@ -45,6 +47,10 @@ public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
   public DriveTrain() {
 
+  //slave setups
+  //leftSlave.follow(leftMaster);
+  //rightSlave.follow(rightMaster);
+
   //invert setup
   leftMaster.setInverted(false);
   leftSlave.setInverted(false);
@@ -55,8 +61,6 @@ public class DriveTrain extends SubsystemBase {
   leftMaster.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
   rightMaster.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
 
-  leftMaster.setSensorPhase(true);
-
   leftMaster.clearStickyFaults(10);
   rightMaster.clearStickyFaults(10);
 
@@ -64,6 +68,11 @@ public class DriveTrain extends SubsystemBase {
   rightMaster.configOpenloopRamp(1);
   leftSlave.configOpenloopRamp(1);
   rightSlave.configOpenloopRamp(1);
+
+  //leftMaster.setSafetyEnabled(false);
+  //rightMaster.setSafetyEnabled(false);
+  //leftSlave.setSafetyEnabled(false);
+  //rightSlave.setSafetyEnabled(false);
 
   }
 
@@ -132,17 +141,18 @@ public class DriveTrain extends SubsystemBase {
 
 
   public void DriveWithJoystick(Joystick driverJoystick) {
+    //robotDrive.arcadeDrive(driverJoystick.getRawAxis(Constants.driverjoystickX)*Constants.speedX,driverJoystick.getRawAxis(Constants.driverjoystickY)*Constants.speedY);
     // Forward, and swing turns: (both abs(X) and abs(Y) are above the threshold, and Y is POSITIVE)
-    double joyX = driverJoystick.getRawAxis(Constants.driverjoystickX)*Constants.speedY;
-    double joyY = driverJoystick.getRawAxis(Constants.driverjoystickY)*Constants.speedX;
+    double joy_y = driverJoystick.getRawAxis(Constants.driverjoystickX)*Constants.speedX;
+    double joy_x = driverJoystick.getRawAxis(Constants.driverjoystickY)*Constants.speedY;
     double threshold = .2;
     double leftMotorOutput;
     double rightMotorOutput;
 
-    double xSpeed = MathUtil.clamp(joyY, -1.0, 1.0);
-    xSpeed = applyDeadband(joyY, threshold);
-    double zRotation = MathUtil.clamp(joyX, -1.0, 1.0);
-    zRotation = applyDeadband(joyX, threshold);
+    double xSpeed = MathUtil.clamp(joy_x, -1.0, 1.0);
+    xSpeed = applyDeadband(joy_x, threshold);
+    double zRotation = MathUtil.clamp(joy_y, -1.0, 1.0);
+    zRotation = applyDeadband(joy_y, threshold);
     double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
     if (xSpeed >= 0.0) {
       // First quadrant, else second quadrant
@@ -167,7 +177,7 @@ public class DriveTrain extends SubsystemBase {
     rightMotors.set(MathUtil.clamp(rightMotorOutput, -1.0, 1.0) * 1);
   }
   
-  public double applyDeadband(double value, double deadband) {
+  protected double applyDeadband(double value, double deadband) {
     if (Math.abs(value) > deadband) {
       if (value > 0.0) {
         return (value - deadband) / (1.0 - deadband);
@@ -178,16 +188,7 @@ public class DriveTrain extends SubsystemBase {
       return 0.0;
     }
   }
-
-  public void driveForward(double speed){
-    leftMotors.set(speed);
-    rightMotors.set(speed);
-  }
-
-  public void driveBackward(double speed){
-    leftMotors.set(-speed);
-    rightMotors.set(-speed);
-  }
+  
 
   public void stopmotors(){
     rightMaster.stopMotor();

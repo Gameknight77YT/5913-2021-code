@@ -15,9 +15,8 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoShoot;
 import frc.robot.commands.ControlWithJoystick;
-import frc.robot.commands.DriveBackward;
-import frc.robot.commands.DriveForward;
 import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.ElevatorControl;
 import frc.robot.commands.FeedBall;
 import frc.robot.commands.IntakeAndShoot;
 import frc.robot.commands.IntakeArmsDown;
@@ -70,8 +69,7 @@ public class RobotContainer {
   private final TrackAndShoot trackAndShoot;
   private final IntakeAndShoot intakeAndShoot;
   private final Test test;
-  private final DriveForward driveForward;
-  private final DriveBackward driveBackward;
+  private final ElevatorControl elevatorControl;
 
   //objects
   public static Joystick driverJoystick;
@@ -134,10 +132,9 @@ public class RobotContainer {
     intakeAndShoot.addRequirements(shooter, intake, camera);
     test = new Test(driveTrain);
     test.addRequirements(driveTrain);
-    driveForward = new DriveForward(driveTrain);
-    driveForward.addRequirements(driveTrain);
-    driveBackward = new DriveBackward(driveTrain);
-    driveBackward.addRequirements(driveTrain);
+    elevatorControl = new ElevatorControl(elevator);
+    elevatorControl.addRequirements(elevator);
+    elevator.setDefaultCommand(elevatorControl);
 
     chooserString = new SendableChooser<String>();
     chooserString.setDefaultOption("GameDefault", "GameDefault");

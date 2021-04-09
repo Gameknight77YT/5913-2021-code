@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -25,12 +26,10 @@ public class Elevator extends SubsystemBase {
 
   /** Creates a new Elevator. */
   public Elevator() {
-
     elevatorSlave.follow(elevatorMaster);
 
     //init encoder
     elevatorMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-    
     elevatorMaster.setSelectedSensorPosition(0);
   }
 
@@ -39,24 +38,25 @@ public class Elevator extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("ElevatorEncoder", getElevatorEncoderPosition());
   }
-   public void ControlElevator(Joystick manipulatorJoystick){
+
+  public void ControlElevator(Joystick manipulatorJoystick){
     double elevatorSpeed = 0; 
-    if (manipulatorJoystick.getRawButton(Constants.releaseElevatorButtonID)==true //up
-    && manipulatorJoystick.getRawButton(Constants.elevatorUpButtonID)){
-      elevatorSpeed = 1;
-    }
-    if (manipulatorJoystick.getRawButton(Constants.elevatorDownButtonID)==true){  //down
-      elevatorSpeed = -1;
-    }
-    elevatorMaster.set(ControlMode.PercentOutput, elevatorSpeed);
+      if (manipulatorJoystick.getRawButton(Constants.releaseElevatorButtonID)==true //up
+      && manipulatorJoystick.getRawButton(Constants.elevatorUpButtonID)){
+        elevatorSpeed = 1;
+      }
+      if (manipulatorJoystick.getRawButton(Constants.elevatorDownButtonID)==true){  //down
+        elevatorSpeed = -1;
+      }
+      elevatorMaster.set(ControlMode.PercentOutput, elevatorSpeed);
     ratchetArm.set(Value.kOff);
-  if (manipulatorJoystick.getRawButton(Constants.releaseElevatorButtonID)==true){
-      ratchetArm.set(Value.kReverse);
-  }    
-  if (manipulatorJoystick.getRawButton(Constants.elevatorDownButtonID)==true){
-      ratchetArm.set(Value.kForward);
+    if (manipulatorJoystick.getRawButton(Constants.releaseElevatorButtonID)==true){
+        ratchetArm.set(Value.kReverse);
+    }    
+    if (manipulatorJoystick.getRawButton(Constants.elevatorDownButtonID)==true){
+        ratchetArm.set(Value.kForward);
+    }
   }
-   }
 
   public  double getElevatorEncoderPosition() {
 	return elevatorMaster.getSelectedSensorPosition();

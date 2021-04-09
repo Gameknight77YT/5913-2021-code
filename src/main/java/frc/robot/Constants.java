@@ -58,7 +58,7 @@ public final class Constants {
 
   // speeds
   public static final double speedX = .85;
-  public static final double speedY = .45;
+  public static final double speedY = .55;
   public static final double AutonomousSpeed = 0.5;
   public static final double TurretSpeed = -.35;
   public static final double elevatorspeed = .4;
@@ -75,9 +75,6 @@ public final class Constants {
   public static final double ShooterSpinupTime = 1;// keep this equal to the AutoTrackTime
   public static final double AutoShootTime = 5;// must be more the ShooterSpinupTime and AutoTrackTime
   public static final double IntakeAndShootTime = 7;
-  public static final double driveForwardDistance = 2000;
-  public static final double driveBackwardDistance = -2000;
-
 
   // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
   // These characterization values MUST be determined either experimentally or
