@@ -74,7 +74,7 @@ public class RobotContainer {
   //objects
   public static Joystick driverJoystick;
   public static Joystick manipulatorJoystick;
-  SendableChooser<String> chooserString;
+  SendableChooser<String> chooser;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -136,12 +136,13 @@ public class RobotContainer {
     elevatorControl.addRequirements(elevator);
     elevator.setDefaultCommand(elevatorControl);
 
-    chooserString = new SendableChooser<String>();
-    chooserString.setDefaultOption("GameDefault", "GameDefault");
-    chooserString.addOption("Game1", "Game1");
-    chooserString.addOption("Game2", "Game2");
-    chooserString.addOption("Test", "paths/Test.wpilib.json");
-    SmartDashboard.putData("Autonomous",chooserString);
+    chooser = new SendableChooser<String>();
+    chooser.setDefaultOption("GameDefault", "GameDefault");
+    chooser.addOption("Game1", "Game1");
+    chooser.addOption("Game2", "Game2");
+    chooser.addOption("Test Path", "Test Path");
+    chooser.addOption("Test Command", "Test Command");
+    SmartDashboard.putData("Autonomous",chooser);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -197,9 +198,11 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-   String Selected = chooserString.getSelected();
-     //return test;
-    if(Selected=="Game1"){
+   String Selected = chooser.getSelected();
+
+    if(Selected == "Test Command"){
+     return test;
+    }else if(Selected=="Game1"){
       
      RamseteCommand Game1command = new RamseteCommand(
         Robot.getGame1Trajectory(), 
