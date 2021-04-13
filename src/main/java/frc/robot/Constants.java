@@ -54,7 +54,6 @@ public final class Constants {
   public static final int elevatorUpButtonID = 10;
   public static final int releaseElevatorButtonID = 6;
   public static final int ActivateTurnTurret = 4;
-  public static final int intakeAndShootButtonID = 10;
 
   // speeds
   public static final double speedX = .85;

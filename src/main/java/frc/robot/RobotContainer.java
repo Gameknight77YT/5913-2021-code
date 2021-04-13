@@ -186,8 +186,6 @@ public class RobotContainer {
     JoystickButton TrackTargetButton = new JoystickButton(manipulatorJoystick, Constants.TrackTargetButtonID);
     TrackTargetButton.whileHeld(new TrackTarget(camera));//Track Target
 
-    JoystickButton intakeAndShootButton = new JoystickButton(manipulatorJoystick, Constants.intakeAndShootButtonID);
-    intakeAndShootButton.whileHeld(new IntakeAndShoot(camera, shooter, intake));//Intake And Shoot
   }
 
   
