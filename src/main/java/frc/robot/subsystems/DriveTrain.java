@@ -144,7 +144,7 @@ public class DriveTrain extends SubsystemBase {
     //robotDrive.arcadeDrive(driverJoystick.getRawAxis(Constants.driverjoystickX)*Constants.speedX,driverJoystick.getRawAxis(Constants.driverjoystickY)*Constants.speedY);
     // Forward, and swing turns: (both abs(X) and abs(Y) are above the threshold, and Y is POSITIVE)
     double joy_y = driverJoystick.getRawAxis(Constants.driverjoystickX)*Constants.speedX;
-    double joy_x = driverJoystick.getRawAxis(Constants.driverjoystickY)*Constants.speedY;
+    double joy_x = -driverJoystick.getRawAxis(Constants.driverjoystickY)*Constants.speedY;
     double threshold = .2;
     double leftMotorOutput;
     double rightMotorOutput;

@@ -262,8 +262,8 @@ public class RobotContainer {
     
     }else{
       
-   RamseteCommand Defaultcommand = new RamseteCommand(
-    Robot.getDefaultTrajectory(), 
+   RamseteCommand TestCommand = new RamseteCommand(
+    Robot.getTestTrajectory(), 
     driveTrain::getPose,
     new RamseteController(Constants.kRamseteB,Constants.kRamseteZeta),
     driveTrain.getFeedForward(),
@@ -275,9 +275,9 @@ public class RobotContainer {
     driveTrain
     );
 
-    driveTrain.resetOdometry(Robot.getDefaultTrajectory().getInitialPose());
+    driveTrain.resetOdometry(Robot.getTestTrajectory().getInitialPose());
 
-      return Defaultcommand.andThen(() -> driveTrain.tankDriveVolts(0, 0));
+      return TestCommand.andThen(() -> driveTrain.tankDriveVolts(0, 0));
     }
   }
 }

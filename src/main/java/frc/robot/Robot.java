@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
   private Timer timer;
   private Timer timer2;
   private DriveTrain driveTrain;
-  static Trajectory DefaultTrajectory = new Trajectory();
+  static Trajectory TestTrajectory = new Trajectory();
   static Trajectory Game1 = new Trajectory();
   static Trajectory Game2 = new Trajectory();
   static Trajectory GameDefault = new Trajectory();
@@ -77,8 +77,8 @@ public class Robot extends TimedRobot {
 
   public void InitTrajectorys() {
     try {
-      Path DefaulttrajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/Test.wpilib.json");
-      DefaultTrajectory = TrajectoryUtil.fromPathweaverJson(DefaulttrajectoryPath);
+      Path TesttrajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/Test.wpilib.json");
+      TestTrajectory = TrajectoryUtil.fromPathweaverJson(TesttrajectoryPath);
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + "paths/Test.wpilib.json", ex.getStackTrace());
     }
@@ -107,8 +107,8 @@ public class Robot extends TimedRobot {
      }
   }
 
-  public static Trajectory getDefaultTrajectory() {
-    return DefaultTrajectory;
+  public static Trajectory getTestTrajectory() {
+    return TestTrajectory;
   }
   public static Trajectory getGame1Trajectory() {
     return Game1;

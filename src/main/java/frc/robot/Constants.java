@@ -56,8 +56,8 @@ public final class Constants {
   public static final int ActivateTurnTurret = 4;
 
   // speeds
-  public static final double speedX = .85;
-  public static final double speedY = .55;
+  public static final double speedY = .85;
+  public static final double speedX = .55;
   public static final double AutonomousSpeed = 0.5;
   public static final double TurretSpeed = -.35;
   public static final double elevatorspeed = .4;
