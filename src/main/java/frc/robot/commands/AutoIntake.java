@@ -4,47 +4,43 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.Constants;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.IntakeArms;
 
-public class Test extends CommandBase {
-  DriveTrain driveTrain;
-  Timer timer = new Timer();
-  private boolean finish = false;
-  /** Creates a new Test. */
-  public Test(DriveTrain dt) {
-    driveTrain = dt;
-    addRequirements(driveTrain);
+public class AutoIntake extends CommandBase {
+  IntakeArms intakeArms;
+  Intake intake;
+  /** Creates a new AutoIntake. */
+  public AutoIntake(Intake i,IntakeArms ia) {
+    intake = i;
+    intakeArms = ia;
+    addRequirements(intake, intakeArms);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    timer.reset();
-    timer.start();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveTrain.tankDriveVolts(2, 2);
-    if(timer.get() > 3){
-      finish = true;
-    }
+    intakeArms.lowerIntakeArms();
+    intake.IntakeAndShoot(Constants.BrushsSpeed,Constants.SuckSpeed, Constants.FeederSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    timer.reset();
-    driveTrain.stopmotors();
+    intake.Stop();
+    intakeArms.resetIntakeArms();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return finish;
+    return false;
   }
 }

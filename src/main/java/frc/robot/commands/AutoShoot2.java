@@ -6,17 +6,22 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.Constants;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
-public class Test extends CommandBase {
-  DriveTrain driveTrain;
-  Timer timer = new Timer();
+public class AutoShoot2 extends CommandBase {
+  Shooter shooter;
+  Intake intake;
+  Timer timer; 
   private boolean finish = false;
-  /** Creates a new Test. */
-  public Test(DriveTrain dt) {
-    driveTrain = dt;
-    addRequirements(driveTrain);
+  /** Creates a new AutoShoot. */
+  public AutoShoot2(Shooter s , Intake i) {
+    shooter = s;
+    intake = i;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(shooter,intake);
+    timer = new Timer();
   }
 
   // Called when the command is initially scheduled.
@@ -24,22 +29,25 @@ public class Test extends CommandBase {
   public void initialize() {
     timer.reset();
     timer.start();
+    while(timer.get() < Constants.ShooterSpinupTime){
+      shooter.ShootBallSpeed1(Constants.ShooterSpeed1);
+    }
+    while(timer.get() > Constants.ShooterSpinupTime & timer.get() < Constants.AutoShootTime){
+      shooter.ShootBallSpeed2(Constants.ShooterSpeed1);
+      intake.FeedBall(Constants.BrushsSpeed, Constants.FeederSpeed);
+    }
+    finish = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    driveTrain.tankDriveVolts(2, 2);
-    if(timer.get() > 3){
-      finish = true;
-    }
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    timer.reset();
-    driveTrain.stopmotors();
+    shooter.StopShooter();
+    intake.Stop();
   }
 
   // Returns true when the command should end.

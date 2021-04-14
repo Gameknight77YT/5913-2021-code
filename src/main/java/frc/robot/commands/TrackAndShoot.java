@@ -17,6 +17,6 @@ public class TrackAndShoot extends ParallelCommandGroup {
   public TrackAndShoot(Camera c, Shooter s, Intake i) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new TrackTarget(c), new AutoShoot(s, i));
+    addCommands(new TrackTarget(c), new AutoShoot1(s, i));
   }
 }

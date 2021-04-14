@@ -10,13 +10,13 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
-public class AutoShoot extends CommandBase {
+public class AutoShoot1 extends CommandBase {
   Shooter shooter;
   Intake intake;
   Timer timer; 
   private boolean finish = false;
   /** Creates a new AutoShoot. */
-  public AutoShoot(Shooter s , Intake i) {
+  public AutoShoot1(Shooter s , Intake i) {
     shooter = s;
     intake = i;
     // Use addRequirements() here to declare subsystem dependencies.

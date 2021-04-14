@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -40,7 +41,6 @@ public class Shooter extends SubsystemBase {
     mainShooter.setSelectedSensorPosition(0, 0, 10);
     topShooter.setSelectedSensorPosition(0, 0, 10);
 
-
     //set configs
     mainShooter.setNeutralMode(NeutralMode.Coast);
     topShooter.setNeutralMode(NeutralMode.Coast);
@@ -50,10 +50,12 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() { 
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("MainShooter Speed", mainShooter.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("TopShooter Speed", topShooter.getSelectedSensorVelocity());
   }
 
   /** Shoots Ball with Speed Preset 1  */
-  public void ShootBallSpeed1(double speed) {
+  public void ShootBallSpeed1(Double speed) {
     mainShooter.set(ControlMode.Velocity, speed);
     topShooter.set(ControlMode.Velocity, (speed*-1) - 3000);
   }

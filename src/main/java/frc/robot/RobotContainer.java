@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.AutoShoot;
+import frc.robot.commands.AutoIntake;
+import frc.robot.commands.AutoShoot1;
+import frc.robot.commands.AutoShoot2;
 import frc.robot.commands.ControlWithJoystick;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.ElevatorControl;
@@ -62,7 +64,8 @@ public class RobotContainer {
   private final ShootBall2 shootball2;
   private final ShootBall3 shootball3;
   private final ShootBall4 shootball4;
-  private final AutoShoot autoshoot;
+  private final AutoShoot1 autoshoot1;
+  private final AutoShoot2 autoshoot2;
   private final IntakeArmsUp intakeArmsUp;
   private final IntakeArmsDown intakeArmsDown;
   private final TrackTarget trackTarget;
@@ -70,6 +73,7 @@ public class RobotContainer {
   private final IntakeAndShoot intakeAndShoot;
   private final Test test;
   private final ElevatorControl elevatorControl;
+  private final AutoIntake autoIntake;
 
   //objects
   public static Joystick driverJoystick;
@@ -118,8 +122,10 @@ public class RobotContainer {
     shootball4.addRequirements(shooter);
     feedball = new FeedBall(intake);
     feedball.addRequirements(intake);
-    autoshoot = new AutoShoot(shooter, intake);
-    autoshoot.addRequirements(shooter,intake);
+    autoshoot1 = new AutoShoot1(shooter, intake);
+    autoshoot1.addRequirements(shooter,intake);
+    autoshoot2 = new AutoShoot2(shooter, intake);
+    autoshoot2.addRequirements(shooter,intake);
     intakeArmsDown = new IntakeArmsDown(intakearms);
     intakeArmsDown.addRequirements(intakearms);
     intakeArmsUp = new IntakeArmsUp(intakearms);
@@ -128,13 +134,15 @@ public class RobotContainer {
     trackTarget.addRequirements(camera);
     trackAndShoot = new TrackAndShoot(camera, shooter, intake);
     trackAndShoot.addRequirements(camera, shooter, intake);
-    intakeAndShoot = new IntakeAndShoot(camera, shooter, intake);
-    intakeAndShoot.addRequirements(shooter, intake, camera);
+    intakeAndShoot = new IntakeAndShoot(camera, shooter, intake, intakearms);
+    intakeAndShoot.addRequirements(shooter, intake, camera, intakearms);
     test = new Test(driveTrain);
     test.addRequirements(driveTrain);
     elevatorControl = new ElevatorControl(elevator);
     elevatorControl.addRequirements(elevator);
     elevator.setDefaultCommand(elevatorControl);
+    autoIntake = new AutoIntake(intake, intakearms);
+    autoIntake.addRequirements(intake, intakearms);
 
     chooser = new SendableChooser<String>();
     chooser.setDefaultOption("GameDefault", "GameDefault");
@@ -200,10 +208,10 @@ public class RobotContainer {
 
     if(Selected == "Test Command"){
      return test;
-    }else if(Selected=="Game1"){
+    }else if(Selected == "Game1"){
       
      RamseteCommand Game1command = new RamseteCommand(
-        Robot.getGame1Trajectory(), 
+        Robot.getGame1Trajectory(),
         driveTrain::getPose,
         new RamseteController(Constants.kRamseteB,Constants.kRamseteZeta),
         driveTrain.getFeedForward(),
@@ -220,7 +228,7 @@ public class RobotContainer {
       return Game1command.raceWith(intakeAndShoot). 
       andThen(() -> driveTrain.tankDriveVolts(0, 0));
 
-    }else if(Selected=="Game2"){
+    }else if(Selected == "Game2"){
       
      RamseteCommand Game2command = new RamseteCommand(
         Robot.getGame2Trajectory(), 
@@ -240,7 +248,7 @@ public class RobotContainer {
       return Game2command.raceWith(intakeAndShoot). 
       andThen(() -> driveTrain.tankDriveVolts(0, 0));
       
-    }else if(Selected=="GameDefault"){
+    }else if(Selected == "GameDefault"){
       
      RamseteCommand GameDefaultcommand = new RamseteCommand(
       Robot.getGameDefaultTrajectory(), 
@@ -257,8 +265,10 @@ public class RobotContainer {
 
       driveTrain.resetOdometry(Robot.getGameDefaultTrajectory().getInitialPose());
 
-      return GameDefaultcommand.//raceWith(intakeAndShoot). 
-      andThen(() -> driveTrain.tankDriveVolts(0, 0));
+      return autoshoot1.
+      andThen(GameDefaultcommand.raceWith(autoIntake)). 
+      andThen(() -> driveTrain.tankDriveVolts(0, 0)).
+      andThen(autoshoot2);
     
     }else{
       

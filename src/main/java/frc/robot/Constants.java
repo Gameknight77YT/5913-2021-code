@@ -57,21 +57,21 @@ public final class Constants {
 
   // speeds
   public static final double speedY = .85;
-  public static final double speedX = .55;
+  public static final double speedX = .65;
   public static final double AutonomousSpeed = 0.5;
   public static final double TurretSpeed = -.35;
   public static final double elevatorspeed = .4;
   public static final double SuckSpeed = 0.65;
   public static final double BrushsSpeed = 0.8;
   public static final double FeederSpeed = -0.7;
-  public static final double ShooterSpeed1 = 20600;// 7
+  public static final double ShooterSpeed1 = 20900;// 7
   public static final double ShooterSpeed2 = 22000;// 9
-  public static final double ShooterSpeed3 = 22500;// 11
+  public static final double ShooterSpeed3 = 23500;// 11
   public static final double ShooterSpeed4 = 27500;// 3
 
   // encoder counts/ timer counts
-  public static final double AutoTrackTime = 1;// keep this equal to the ShooterSpinupTime
-  public static final double ShooterSpinupTime = 1;// keep this equal to the AutoTrackTime
+  public static final double AutoTrackTime = 2;// keep this equal to the ShooterSpinupTime
+  public static final double ShooterSpinupTime = 2;// keep this equal to the AutoTrackTime
   public static final double AutoShootTime = 5;// must be more the ShooterSpinupTime and AutoTrackTime
   public static final double IntakeAndShootTime = 7;
 
