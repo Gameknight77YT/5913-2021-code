@@ -47,6 +47,7 @@ public class Camera extends SubsystemBase {
 
   @Override
   public void periodic() {
+    turretControl.set(0);
     //read values periodically
     final double x = tx.getDouble(0.0);
     final double y = ty.getDouble(0.0);
@@ -62,6 +63,7 @@ public class Camera extends SubsystemBase {
     SmartDashboard.putNumber("Distance", dist);
     
     limelightTracking();
+    
   }
 
   
@@ -92,6 +94,11 @@ public class Camera extends SubsystemBase {
    }
     m_LimelightSteerCommand = steer_cmd * -1;
 
+    }
+
+    public void AutoTrack(){
+      limelightTracking();
+      turretControl.set(ControlMode.PercentOutput, m_LimelightSteerCommand);
     }
 
   public void Track(){

@@ -7,35 +7,52 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.Camera;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
 public class AutoShoot2 extends CommandBase {
   Shooter shooter;
   Intake intake;
-  Timer timer; 
+  Camera camera;
+  DriveTrain driveTrain;
+  Timer timer = new Timer(); 
   private boolean finish = false;
   /** Creates a new AutoShoot. */
-  public AutoShoot2(Shooter s , Intake i) {
+  public AutoShoot2(Shooter s , Intake i, Camera c, DriveTrain dt) {
     shooter = s;
     intake = i;
+    camera = c;
+    driveTrain = dt;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shooter,intake);
-    timer = new Timer();
+    addRequirements(shooter,intake,camera,driveTrain);
+    
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    driveTrain.ClearDriveEncoders();
     timer.reset();
     timer.start();
     while(timer.get() < Constants.ShooterSpinupTime){
       shooter.ShootBallSpeed1(Constants.ShooterSpeed1);
+      camera.AutoTrack();
+      while(driveTrain.GetLeftMasterEncoderPose()/ Constants.EncoderConstant > -70 ){
+        driveTrain.Drive(-.2, -.2);
+      }
     }
     while(timer.get() > Constants.ShooterSpinupTime & timer.get() < Constants.AutoShootTime){
-      shooter.ShootBallSpeed2(Constants.ShooterSpeed1);
+      shooter.ShootBallSpeed1(Constants.ShooterSpeed1);
       intake.FeedBall(Constants.BrushsSpeed, Constants.FeederSpeed);
+      camera.AutoTrack();
+      if(driveTrain.GetLeftMasterEncoderPose()/ Constants.EncoderConstant < -70 ){
+        driveTrain.stopmotors();
+        driveTrain.SetMotorMode(0);
+      }
     }
+  
     finish = true;
   }
 
@@ -48,6 +65,7 @@ public class AutoShoot2 extends CommandBase {
   public void end(boolean interrupted) {
     shooter.StopShooter();
     intake.Stop();
+    camera.Reset();
   }
 
   // Returns true when the command should end.

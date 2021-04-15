@@ -8,39 +8,49 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Camera;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
-public class AutoShoot1 extends CommandBase {
+public class AutoShoot2Other extends CommandBase {
   Shooter shooter;
   Intake intake;
   Camera camera;
-  Timer timer = new Timer();
+  DriveTrain driveTrain;
+  Timer timer = new Timer(); 
   private boolean finish = false;
   /** Creates a new AutoShoot. */
-  public AutoShoot1(Shooter s , Intake i, Camera c) {
+  public AutoShoot2Other(Shooter s , Intake i, Camera c, DriveTrain dt) {
     shooter = s;
     intake = i;
     camera = c;
+    driveTrain = dt;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shooter,intake,camera);
+    addRequirements(shooter,intake,camera,driveTrain);
+    
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    driveTrain.ClearDriveEncoders();
     timer.reset();
     timer.start();
-    camera.Reset();
     while(timer.get() < Constants.ShooterSpinupTime){
       shooter.ShootBallSpeed1(Constants.ShooterSpeed1);
       camera.AutoTrack();
+      while(driveTrain.GetLeftMasterEncoderPose()/ Constants.EncoderConstant < 70 ){
+        driveTrain.Drive(.2, .2);
+      }
     }
     while(timer.get() > Constants.ShooterSpinupTime & timer.get() < Constants.AutoShootTime){
       shooter.ShootBallSpeed1(Constants.ShooterSpeed1);
       intake.FeedBall(Constants.BrushsSpeed, Constants.FeederSpeed);
       camera.AutoTrack();
+      driveTrain.stopmotors();
+      driveTrain.SetMotorMode(0);
     }
+  
     finish = true;
   }
 

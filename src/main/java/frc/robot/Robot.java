@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,17 +30,13 @@ import frc.robot.subsystems.DriveTrain;
 public class Robot extends TimedRobot {
   private Command autonomousCommand;
   private RobotContainer container;
-  private Timer timer;
-  private Timer timer2;
   private DriveTrain driveTrain;
   static Trajectory TestTrajectory = new Trajectory();
-  static Trajectory Game1 = new Trajectory();
-  static Trajectory Game2 = new Trajectory();
   static Trajectory GameDefault = new Trajectory();
   static Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS1);
 
   /**
-   * This function is run when the robot is first ed up and should be used
+   * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
   @Override
@@ -49,11 +44,8 @@ public class Robot extends TimedRobot {
     calibrate();
     resetGyro();
     // Instantiate our RobotContainer. This will perform all our button bindings,
-    // and put our
-    // autonomous chooser on the dashboard.
+    // and put our autonomous chooser on the dashboard.
     container = new RobotContainer();
-    timer = new Timer();
-    timer2 = new Timer();
     driveTrain = new DriveTrain();
     SmartDashboard.putData(CommandScheduler.getInstance());
     // init Trajectorys
@@ -82,22 +74,6 @@ public class Robot extends TimedRobot {
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + "paths/Test.wpilib.json", ex.getStackTrace());
     }
-       String Game1JSON = "paths/Game1.wpilib.json";
-     try {
-      Path Game1Path = Filesystem.getDeployDirectory().toPath().resolve(Game1JSON);
-      Game1 = TrajectoryUtil.fromPathweaverJson(Game1Path);
-     } catch (IOException ex) {
-      DriverStation.reportError("Unable to open trajectory: " + Game1JSON, ex.getStackTrace());
-     }
-
-       String Game2JSON = "paths/Game2.wpilib.json";
-     try {
-      Path Game2Path = Filesystem.getDeployDirectory().toPath().resolve(Game2JSON);
-      Game2 = TrajectoryUtil.fromPathweaverJson(Game2Path);
-     } catch (IOException ex) {
-      DriverStation.reportError("Unable to open trajectory: " + Game2JSON, ex.getStackTrace());
-     }
-
        String GameDefaultJSON = "paths/GameDefault.wpilib.json";
      try {
       Path GameDefaultPath = Filesystem.getDeployDirectory().toPath().resolve(GameDefaultJSON);
@@ -109,12 +85,6 @@ public class Robot extends TimedRobot {
 
   public static Trajectory getTestTrajectory() {
     return TestTrajectory;
-  }
-  public static Trajectory getGame1Trajectory() {
-    return Game1;
-  }
-  public static Trajectory getGame2Trajectory() {
-    return Game2;
   }
   public static Trajectory getGameDefaultTrajectory() {
     return GameDefault;
@@ -135,22 +105,12 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-    CommandScheduler.getInstance().run();
+    CommandScheduler.getInstance().run();//DO NOT DELETE
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {
-    timer.stop();
-    SmartDashboard.putNumber("Time", timer.get());
-    driveTrain.SetMotorMode(0);
-    timer2.start();
-    if(timer2.get()>4){
-      driveTrain.SetMotorMode(1);
-      timer2.stop();
-      timer2.reset();
-    }
-  }
+  public void disabledInit() {}
 
   @Override
   public void disabledPeriodic() {}
@@ -158,8 +118,6 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    timer.reset();
-    timer.start();
     driveTrain.SetMotorMode(1);
     container.getAutonomousCommand().schedule();    
   }
@@ -172,8 +130,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    timer.reset();
-    timer.start();
     driveTrain.SetMotorMode(1);
     // This makes sure that the autonomous stops running when
     // teleop s running. If you want the autonomous to

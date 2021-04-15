@@ -142,7 +142,6 @@ public class DriveTrain extends SubsystemBase {
   /** Makes Robot Go Brrrrrrr */
   public void DriveWithJoystick(Joystick driverJoystick) {
     //robotDrive.arcadeDrive(driverJoystick.getRawAxis(Constants.driverjoystickX)*Constants.speedX,driverJoystick.getRawAxis(Constants.driverjoystickY)*Constants.speedY);
-    // Forward, and swing turns: (both abs(X) and abs(Y) are above the threshold, and Y is POSITIVE)
     double joy_y = driverJoystick.getRawAxis(Constants.driverjoystickX)*Constants.speedX;
     double joy_x = -driverJoystick.getRawAxis(Constants.driverjoystickY)*Constants.speedY;
     double threshold = .2;
@@ -189,11 +188,16 @@ public class DriveTrain extends SubsystemBase {
       return 0.0;
     }
   }
+
+  public void Drive(double leftMotorOutput, double rightMotorOutput){
+    leftMotors.set(leftMotorOutput);
+    rightMotors.set(rightMotorOutput);
+  }
   
 
   public void stopmotors(){
-    rightMaster.stopMotor();
-    leftMaster.stopMotor();
+    rightMotors.stopMotor();
+    leftMotors.stopMotor();
   }
 
   public double GetLeftMasterEncoderPose() {

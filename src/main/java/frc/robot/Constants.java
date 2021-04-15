@@ -69,11 +69,10 @@ public final class Constants {
   public static final double ShooterSpeed3 = 23500;// 11
   public static final double ShooterSpeed4 = 27500;// 3
 
-  // encoder counts/ timer counts
-  public static final double AutoTrackTime = 2;// keep this equal to the ShooterSpinupTime
-  public static final double ShooterSpinupTime = 2;// keep this equal to the AutoTrackTime
-  public static final double AutoShootTime = 5;// must be more the ShooterSpinupTime and AutoTrackTime
-  public static final double IntakeAndShootTime = 7;
+  // encoder counts/ times
+  public static final double AutoTrackTime = 1.5;// keep this equal to the ShooterSpinupTime
+  public static final double ShooterSpinupTime = 1.5;// keep this equal to the AutoTrackTime
+  public static final double AutoShootTime = 4;// must be more the ShooterSpinupTime and AutoTrackTime
 
   // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
   // These characterization values MUST be determined either experimentally or
