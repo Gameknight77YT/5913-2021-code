@@ -42,6 +42,10 @@ public class AutoShoot2 extends CommandBase {
       while(driveTrain.GetLeftMasterEncoderPose()/ Constants.EncoderConstant > -70 ){
         driveTrain.Drive(-.2, -.2);
       }
+      if(driveTrain.GetLeftMasterEncoderPose()/ Constants.EncoderConstant < -70 ){
+        driveTrain.stopmotors();
+        driveTrain.SetMotorMode(0);
+      }
     }
     while(timer.get() > Constants.ShooterSpinupTime & timer.get() < Constants.AutoShootTime){
       shooter.ShootBallSpeed1(Constants.ShooterSpeed1);

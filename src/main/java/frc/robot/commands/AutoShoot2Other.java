@@ -39,9 +39,7 @@ public class AutoShoot2Other extends CommandBase {
     while(timer.get() < Constants.ShooterSpinupTime){
       shooter.ShootBallSpeed1(Constants.ShooterSpeed1);
       camera.AutoTrack();
-      while(driveTrain.GetLeftMasterEncoderPose()/ Constants.EncoderConstant < 70 ){
-        driveTrain.Drive(.2, .2);
-      }
+      
     }
     while(timer.get() > Constants.ShooterSpinupTime & timer.get() < Constants.AutoShootTime){
       shooter.ShootBallSpeed1(Constants.ShooterSpeed1);
@@ -50,8 +48,18 @@ public class AutoShoot2Other extends CommandBase {
       driveTrain.stopmotors();
       driveTrain.SetMotorMode(0);
     }
-  
-    finish = true;
+    while(timer.get() > Constants.AutoShootTime && timer.get() < 14){
+    shooter.StopShooter();
+    intake.Stop();
+      while(driveTrain.GetLeftMasterEncoderPose()/ Constants.EncoderConstant < 70 ){
+        driveTrain.Drive(.2, .2);
+      }
+      while(driveTrain.GetLeftMasterEncoderPose()/ Constants.EncoderConstant > 70){
+        driveTrain.stopmotors();
+        driveTrain.SetMotorMode(0);
+        finish = true;
+      }
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -61,8 +69,6 @@ public class AutoShoot2Other extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.StopShooter();
-    intake.Stop();
     camera.Reset();
   }
 
