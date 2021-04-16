@@ -47,7 +47,6 @@ public class Robot extends TimedRobot {
     // and put our autonomous chooser on the dashboard.
     container = new RobotContainer();
     driveTrain = new DriveTrain();
-    autonomousCommand = container.getAutonomousCommand();
     SmartDashboard.putData(CommandScheduler.getInstance());
     // init Trajectorys
     InitTrajectorys();
@@ -120,9 +119,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     driveTrain.SetMotorMode(1);
-    if (autonomousCommand != null) {
-      autonomousCommand.schedule();
-    }
+    container.getAutonomousCommand().schedule();    
   }
 
   /** This function is called periodically during autonomous. */
@@ -135,7 +132,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     driveTrain.SetMotorMode(1);
     // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
+    // teleop s running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
     if (autonomousCommand != null) {

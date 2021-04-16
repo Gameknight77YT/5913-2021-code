@@ -39,8 +39,9 @@ public class AutoShoot2Other extends CommandBase {
     while(timer.get() < Constants.ShooterSpinupTime){
       shooter.ShootBallSpeed1(Constants.ShooterSpeed1);
       camera.AutoTrack();
-      driveTrain.Drive(.2, .2);
-      
+      while(driveTrain.GetLeftMasterEncoderPose()/ Constants.EncoderConstant < 70 ){
+        driveTrain.Drive(.2, .2);
+      }
     }
     while(timer.get() > Constants.ShooterSpinupTime & timer.get() < Constants.AutoShootTime){
       shooter.ShootBallSpeed1(Constants.ShooterSpeed1);
