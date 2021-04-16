@@ -18,11 +18,9 @@ import frc.robot.commands.AutoShoot1;
 import frc.robot.commands.AutoShoot2;
 import frc.robot.commands.AutoShoot2Other;
 import frc.robot.commands.ControlWithJoystick;
-import frc.robot.commands.DriveBack;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.ElevatorControl;
 import frc.robot.commands.FeedBall;
-import frc.robot.commands.IntakeAndShoot;
 import frc.robot.commands.IntakeArmsDown;
 import frc.robot.commands.IntakeArmsUp;
 import frc.robot.commands.IntakeBall;
@@ -70,11 +68,9 @@ public class RobotContainer {
   private final IntakeArmsUp intakeArmsUp;
   private final IntakeArmsDown intakeArmsDown;
   private final TrackTarget trackTarget;
-  private final IntakeAndShoot intakeAndShoot;
   private final Test test;
   private final ElevatorControl elevatorControl;
   private final AutoIntake autoIntake;
-  private final DriveBack driveBack;
   private final AutoShoot2Other autoShoot2Other;
 
   //objects
@@ -134,8 +130,6 @@ public class RobotContainer {
     intakeArmsUp.addRequirements(intakearms);
     trackTarget = new TrackTarget(camera);
     trackTarget.addRequirements(camera);
-    intakeAndShoot = new IntakeAndShoot(camera, shooter, intake, intakearms);
-    intakeAndShoot.addRequirements(shooter, intake, camera, intakearms);
     test = new Test(driveTrain);
     test.addRequirements(driveTrain);
     elevatorControl = new ElevatorControl(elevator);
@@ -143,8 +137,6 @@ public class RobotContainer {
     elevator.setDefaultCommand(elevatorControl);
     autoIntake = new AutoIntake(intake, intakearms, camera);
     autoIntake.addRequirements(intake, intakearms, camera);
-    driveBack = new DriveBack(driveTrain);
-    driveBack.addRequirements(driveTrain);
     autoShoot2Other = new AutoShoot2Other(shooter,intake,camera,driveTrain);
     autoShoot2Other.addRequirements(shooter,intake,camera,driveTrain);
 
@@ -210,7 +202,7 @@ public class RobotContainer {
    String Selected = chooser.getSelected();
 
     if(Selected == "Test Command"){
-     return driveBack;
+     return test;
     }else if(Selected == "GameDefault"){
       
      RamseteCommand GameDefaultcommand = new RamseteCommand(

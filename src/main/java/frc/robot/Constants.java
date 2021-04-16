@@ -56,7 +56,7 @@ public final class Constants {
   public static final int ActivateTurnTurret = 4;
 
   // speeds
-  public static final double speedY = .85;
+  public static final double speedY = .75;
   public static final double speedX = .65;
   public static final double AutonomousSpeed = 0.5;
   public static final double TurretSpeed = -.35;
@@ -73,11 +73,11 @@ public final class Constants {
   public static final double AutoTrackTime = 1.5;// keep this equal to the ShooterSpinupTime
   public static final double ShooterSpinupTime = 1.5;// keep this equal to the AutoTrackTime
   public static final double AutoShootTime = 4;// must be more the ShooterSpinupTime and AutoTrackTime
+  public static final int DriveDistance = 70;
 
   // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
   // These characterization values MUST be determined either experimentally or
-  // theoretically
-  // for *your* robot's drive.
+  // theoretically for *your* robot's drive.
   // The Robot Characterization Toolsuite provides a convenient tool for obtaining
   // these
   // values for your robot.

@@ -139,7 +139,10 @@ public class DriveTrain extends SubsystemBase {
 
   
 
-  /** Makes Robot Go Brrrrrrr */
+  /** Makes Robot Go Brrrrrrrrrr
+   * 
+   * @param driverJoystick
+   */
   public void DriveWithJoystick(Joystick driverJoystick) {
     //robotDrive.arcadeDrive(driverJoystick.getRawAxis(Constants.driverjoystickX)*Constants.speedX,driverJoystick.getRawAxis(Constants.driverjoystickY)*Constants.speedY);
     double joy_y = driverJoystick.getRawAxis(Constants.driverjoystickX)*Constants.speedX;
@@ -221,6 +224,10 @@ public class DriveTrain extends SubsystemBase {
     rightMaster.setSelectedSensorPosition(0);
   }
 
+  /**sets the Neutral Mode for all the Motors
+   * 
+   * @param mode 1 for Coast, 0 for Brake
+   */
   public void SetMotorMode(double mode){
     if(mode==1){
 
