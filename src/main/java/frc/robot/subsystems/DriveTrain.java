@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -16,7 +17,6 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpiutil.math.MathUtil;
@@ -69,6 +69,11 @@ public class DriveTrain extends SubsystemBase {
   leftSlave.configOpenloopRamp(1);
   rightSlave.configOpenloopRamp(1);
 
+  leftMaster.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 45, 175, 5));
+  rightMaster.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 45, 175, 5));
+  leftSlave.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 45, 175, 5));
+  rightSlave.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 45, 175, 5));
+
   //leftMaster.setSafetyEnabled(false);
   //rightMaster.setSafetyEnabled(false);
   //leftSlave.setSafetyEnabled(false);
@@ -82,10 +87,10 @@ public class DriveTrain extends SubsystemBase {
     GetLeftMasterEncoderSpeed();
     GetRightMasterEncoderPose();
     GetLeftMasterEncoderPose();
-    SmartDashboard.putNumber("LeftEncoderPose", GetLeftMasterEncoderPose()/Constants.EncoderConstant);
-    SmartDashboard.putNumber("RightEncoderPose", GetRightMasterEncoderPose()/Constants.EncoderConstant);
-    SmartDashboard.putNumber("LeftEncoderSpeed", GetLeftMasterEncoderSpeed());
-    SmartDashboard.putNumber("RightEncoderSpeed", GetRightMasterEncoderSpeed());
+    //SmartDashboard.putNumber("LeftEncoderPose", GetLeftMasterEncoderPose()/Constants.EncoderConstant);
+    //SmartDashboard.putNumber("RightEncoderPose", GetRightMasterEncoderPose()/Constants.EncoderConstant);
+    //SmartDashboard.putNumber("LeftEncoderSpeed", GetLeftMasterEncoderSpeed());
+    //SmartDashboard.putNumber("RightEncoderSpeed", GetRightMasterEncoderSpeed());
 
     pose = Odometry.update(
     Robot.getHeading(),

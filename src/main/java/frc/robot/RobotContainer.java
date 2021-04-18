@@ -88,12 +88,12 @@ public class RobotContainer {
     shooter = new Shooter();
     intakearms = new IntakeArms();
     camera = new Camera();
-    SmartDashboard.putData(driveTrain);
-    SmartDashboard.putData(elevator);
-    SmartDashboard.putData(intake);
-    SmartDashboard.putData(shooter);
-    SmartDashboard.putData(intakearms);
-    SmartDashboard.putData(camera);
+    //SmartDashboard.putData(driveTrain);
+    //SmartDashboard.putData(elevator);
+    //SmartDashboard.putData(intake);
+    //SmartDashboard.putData(shooter);
+    //SmartDashboard.putData(intakearms);
+    //SmartDashboard.putData(camera);
 
     //init objects
     driverJoystick = new Joystick(Constants.DriverJoystickID);

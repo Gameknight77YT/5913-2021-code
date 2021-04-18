@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
@@ -35,7 +34,7 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("ElevatorEncoder", getElevatorEncoderPosition());
+    //SmartDashboard.putNumber("ElevatorEncoder", getElevatorEncoderPosition());
   }
 
   public void ControlElevator(Joystick manipulatorJoystick){

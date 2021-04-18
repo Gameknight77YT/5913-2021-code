@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -47,7 +46,7 @@ public class Robot extends TimedRobot {
     // and put our autonomous chooser on the dashboard.
     container = new RobotContainer();
     driveTrain = new DriveTrain();
-    SmartDashboard.putData(CommandScheduler.getInstance());
+    //SmartDashboard.putData(CommandScheduler.getInstance());
     // init Trajectorys
     InitTrajectorys();
   }
@@ -99,8 +98,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("gyroValue", gyro.getAngle());
-    SmartDashboard.putNumber("gyroRate", gyro.getRate());
+    //SmartDashboard.putNumber("gyroValue", gyro.getAngle());
+    //SmartDashboard.putNumber("gyroRate", gyro.getRate());
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
