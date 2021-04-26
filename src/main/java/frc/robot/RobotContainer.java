@@ -27,7 +27,7 @@ import frc.robot.commands.IntakeBall;
 import frc.robot.commands.ShootBall1;
 import frc.robot.commands.ShootBall2;
 import frc.robot.commands.ShootBall3;
-import frc.robot.commands.ShootBall4;
+import frc.robot.commands.ShootBallAuto;
 import frc.robot.commands.SpitOutBall;
 import frc.robot.commands.Test;
 import frc.robot.commands.TrackTarget;
@@ -62,7 +62,7 @@ public class RobotContainer {
   private final ShootBall1 shootball1;
   private final ShootBall2 shootball2;
   private final ShootBall3 shootball3;
-  private final ShootBall4 shootball4;
+  private final ShootBallAuto shootballAuto;
   private final AutoShoot1 autoshoot1;
   private final AutoShoot2 autoshoot2;
   private final IntakeArmsUp intakeArmsUp;
@@ -76,30 +76,33 @@ public class RobotContainer {
   //objects
   public static Joystick driverJoystick;
   public static Joystick manipulatorJoystick;
-  SendableChooser<String> chooser;
+  SendableChooser<String> AutoChooser;
+  static SendableChooser<Boolean> timerChooser;
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
-    
-    //init subsystems
+
+    // init subsystems
     driveTrain = new DriveTrain();
     elevator = new Elevator();
     intake = new Intake();
     shooter = new Shooter();
     intakearms = new IntakeArms();
     camera = new Camera();
-    //SmartDashboard.putData(driveTrain);
-    //SmartDashboard.putData(elevator);
-    //SmartDashboard.putData(intake);
-    //SmartDashboard.putData(shooter);
-    //SmartDashboard.putData(intakearms);
-    //SmartDashboard.putData(camera);
+    // SmartDashboard.putData(driveTrain);
+    // SmartDashboard.putData(elevator);
+    // SmartDashboard.putData(intake);
+    // SmartDashboard.putData(shooter);
+    // SmartDashboard.putData(intakearms);
+    // SmartDashboard.putData(camera);
 
-    //init objects
+    // init objects
     driverJoystick = new Joystick(Constants.DriverJoystickID);
     manipulatorJoystick = new Joystick(Constants.ManipulatorJoystickID);
 
-    //init commands
+    // init commands
     driveWithJoystick = new DriveWithJoysticks(driveTrain);
     driveWithJoystick.addRequirements(driveTrain);
     driveTrain.setDefaultCommand(driveWithJoystick);
@@ -116,14 +119,14 @@ public class RobotContainer {
     shootball2.addRequirements(shooter);
     shootball3 = new ShootBall3(shooter);
     shootball3.addRequirements(shooter);
-    shootball4 = new ShootBall4(shooter);
-    shootball4.addRequirements(shooter);
+    shootballAuto = new ShootBallAuto(shooter);
+    shootballAuto.addRequirements(shooter);
     feedball = new FeedBall(intake);
     feedball.addRequirements(intake);
-    autoshoot1 = new AutoShoot1(shooter, intake,camera);
-    autoshoot1.addRequirements(shooter,intake,camera);
-    autoshoot2 = new AutoShoot2(shooter, intake,camera,driveTrain);
-    autoshoot2.addRequirements(shooter,intake,camera,driveTrain);
+    autoshoot1 = new AutoShoot1(shooter, intake, camera);
+    autoshoot1.addRequirements(shooter, intake, camera);
+    autoshoot2 = new AutoShoot2(shooter, intake, camera, driveTrain);
+    autoshoot2.addRequirements(shooter, intake, camera, driveTrain);
     intakeArmsDown = new IntakeArmsDown(intakearms);
     intakeArmsDown.addRequirements(intakearms);
     intakeArmsUp = new IntakeArmsUp(intakearms);
@@ -137,18 +140,32 @@ public class RobotContainer {
     elevator.setDefaultCommand(elevatorControl);
     autoIntake = new AutoIntake(intake, intakearms, camera);
     autoIntake.addRequirements(intake, intakearms, camera);
-    autoShoot2Other = new AutoShoot2Other(shooter,intake,camera,driveTrain);
-    autoShoot2Other.addRequirements(shooter,intake,camera,driveTrain);
+    autoShoot2Other = new AutoShoot2Other(shooter, intake, camera, driveTrain);
+    autoShoot2Other.addRequirements(shooter, intake, camera, driveTrain);
 
-    chooser = new SendableChooser<String>();
-    chooser.setDefaultOption("GameDefault", "GameDefault");
-    chooser.addOption("GameOther", "GameOther");
-    chooser.addOption("Test Path", "Test Path");
-    chooser.addOption("Test Command", "Test Command");
-    SmartDashboard.putData("Autonomous",chooser);
+    AutoChooser = new SendableChooser<String>();
+    AutoChooser.setDefaultOption("GameDefault", "GameDefault");
+    AutoChooser.addOption("GameOther", "GameOther");
+    AutoChooser.addOption("Test Path", "Test Path");
+    AutoChooser.addOption("Test Command", "Test Command");
+    SmartDashboard.putData("Autonomous", AutoChooser);
+
+    timerChooser = new SendableChooser<Boolean>();
+    timerChooser.setDefaultOption("Timer Off", false);
+    timerChooser.addOption("Timer On", true);
+    SmartDashboard.putData("Timer", timerChooser);
 
     // Configure the button bindings
     configureButtonBindings();
+  }
+
+  /**
+   * tells the robot if you want the timer on or not
+   * 
+   * @return timer state
+   */
+  public static boolean getTimerState() {
+    return timerChooser.getSelected();
   }
 
   /**
@@ -175,7 +192,7 @@ public class RobotContainer {
     ShootBall3Button.whileHeld(new ShootBall3(shooter));//shoot ball speed3
 
     JoystickButton ShootBall4Button = new JoystickButton(manipulatorJoystick, Constants.ShootBall4ButtonID);
-    ShootBall4Button.whileHeld(new ShootBall4(shooter));//shoot ball speed4
+    ShootBall4Button.whileHeld(new ShootBallAuto(shooter));//shoot ball Auto
 
     JoystickButton FeederButton = new JoystickButton(manipulatorJoystick, Constants.FeederButtonID);
     FeederButton.whileHeld(new FeedBall(intake));//feed ball into shooter
@@ -199,7 +216,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-   String Selected = chooser.getSelected();
+   String Selected = AutoChooser.getSelected();
 
     if(Selected == "Test Command"){
      return test;

@@ -56,7 +56,7 @@ public final class Constants {
   public static final int ActivateTurnTurret = 4;
 
   // speeds
-  public static final double speedY = .85;
+  public static final double speedY = .65;
   public static final double speedX = .65;
   public static final double AutonomousSpeed = 0.5;
   public static final double TurretSpeed = -.35;
@@ -67,7 +67,6 @@ public final class Constants {
   public static final double ShooterSpeed1 = 20900;// 7
   public static final double ShooterSpeed2 = 22000;// 9
   public static final double ShooterSpeed3 = 23500;// 11
-  public static final double ShooterSpeed4 = 27500;// 3
 
   // encoder counts/ times
   public static final double AutoTrackTime = 1.5;// keep this equal to the ShooterSpinupTime

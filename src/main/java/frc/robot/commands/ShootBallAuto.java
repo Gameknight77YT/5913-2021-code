@@ -5,13 +5,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 
-public class ShootBall4 extends CommandBase {
+public class ShootBallAuto extends CommandBase {
   Shooter shooter;
   /** Creates a new ShootBall4. */
-  public ShootBall4(Shooter s) {
+  public ShootBallAuto(Shooter s) {
     shooter = s;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter);
@@ -24,7 +23,7 @@ public class ShootBall4 extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.ShootBallSpeed4(Constants.ShooterSpeed4);
+    shooter.ShootBallAutoSpeed();
 
   }
 

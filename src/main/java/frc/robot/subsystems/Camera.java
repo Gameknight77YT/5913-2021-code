@@ -15,6 +15,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -26,11 +27,13 @@ public class Camera extends SubsystemBase {
   final NetworkTableEntry ty = table.getEntry("ty"); 
   final NetworkTableEntry ta = table.getEntry("ta");
   final NetworkTableEntry ledMode = table.getEntry("ledMode");
+  static double Distance;
 
   boolean limelightHasValidTarget = false;
   private double m_LimelightSteerCommand = 0.0;
   WPI_TalonSRX turretControl = new WPI_TalonSRX(Constants.TurretControlID);
   CameraServer server;
+
   /** Creates a new Camera. */
   public Camera() {
     server = CameraServer.getInstance();
@@ -48,22 +51,27 @@ public class Camera extends SubsystemBase {
   @Override
   public void periodic() {
     turretControl.set(0);
-    //read values periodically
+    // read values periodically
     final double x = tx.getDouble(0.0);
     final double y = ty.getDouble(0.0);
     final double area = ta.getDouble(0.0);
-    
-    //post to smart dashboard periodically
+
+    // post to smart dashboard periodically
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);
     SmartDashboard.putNumber("LimelightArea", area);
 
-    final double distAngle = (20 + y);
-    final double dist = (8.1875 - 2.25) / (Math.tan(distAngle));
-    SmartDashboard.putNumber("Distance", dist);
-    
+    double distAngle = (20 + y);
+    Distance = (Units.feetToMeters(8.1875) - Units.feetToMeters(2.25)) / (Math.tan(distAngle));
+    SmartDashboard.putNumber("DistanceMeters", Distance);
+    SmartDashboard.putNumber("DistanceFeet", Units.metersToFeet(Distance));
+
+
     limelightTracking();
-    
+  }
+
+  public static double getDistance() {
+    return Distance;
   }
 
   

@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,6 +35,7 @@ public class Robot extends TimedRobot {
   static Trajectory TestTrajectory = new Trajectory();
   static Trajectory GameDefault = new Trajectory();
   static Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS1);
+  Timer timer = new Timer();
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -105,11 +108,16 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();//DO NOT DELETE
+    SmartDashboard.putNumber("time", timer.get());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    if(RobotContainer.getTimerState() == true){
+      timer.stop();
+    }
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -129,9 +137,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    if(RobotContainer.getTimerState() == true){
+      timer.reset();
+      timer.start();
+    }
     driveTrain.SetMotorMode(1);
     // This makes sure that the autonomous stops running when
-    // teleop s running. If you want the autonomous to
+    // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
     if (autonomousCommand != null) {
