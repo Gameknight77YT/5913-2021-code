@@ -79,7 +79,7 @@ public class Camera extends SubsystemBase {
   public void limelightTracking() {
     // These numbers must be tuned for your Robot!  Be careful!
     final double STEER_K = 0.04;                   // how hard to turn toward the target
-    final double min_command = 0.025;
+    final double min_command = 0.02;
     double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
 

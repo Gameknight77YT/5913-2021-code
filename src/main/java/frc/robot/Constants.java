@@ -56,7 +56,7 @@ public final class Constants {
   public static final int ActivateTurnTurret = 4;
 
   // speeds
-  public static final double speedY = .65;
+  public static final double speedY = .8;
   public static final double speedX = .65;
   public static final double AutonomousSpeed = 0.5;
   public static final double TurretSpeed = -.35;
@@ -100,7 +100,8 @@ public final class Constants {
   public static final double kd = 0;
 
   // other constants
-  public static final double WheelDiameter = 6;
-  public static final double EncoderConstant = 668.897;
+  public static final double WheelRadiusInches = 3;
+  //public static final double EncoderConstant = 668.897;
+  public static final double GearRatio = 14.014;
 
 }

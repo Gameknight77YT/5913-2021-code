@@ -51,10 +51,10 @@ public class AutoShoot2Other extends CommandBase {
     while(timer.get() > Constants.AutoShootTime && timer.get() < 14){
     shooter.StopShooter();
     intake.Stop();
-      while(driveTrain.GetLeftMasterEncoderPose()/ Constants.EncoderConstant < 70 ){
+      while(driveTrain.GetLeftMasterEncoderPose() < 70 ){
         driveTrain.Drive(.2, .2);
       }
-      while(driveTrain.GetLeftMasterEncoderPose()/ Constants.EncoderConstant > 70){
+      while(driveTrain.GetLeftMasterEncoderPose() > 70){
         driveTrain.stopmotors();
         driveTrain.SetMotorMode(0);
         finish = true;

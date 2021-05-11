@@ -39,10 +39,10 @@ public class AutoShoot2 extends CommandBase {
     while(timer.get() < Constants.ShooterSpinupTime){
       shooter.ShootBallSpeed1(Constants.ShooterSpeed1);
       camera.AutoTrack();
-      while(driveTrain.GetLeftMasterEncoderPose()/ Constants.EncoderConstant > -70 ){
+      while(driveTrain.GetLeftMasterEncoderPose() > -70 ){
         driveTrain.Drive(-.2, -.2);
       }
-      if(driveTrain.GetLeftMasterEncoderPose()/ Constants.EncoderConstant < -70 ){
+      if(driveTrain.GetLeftMasterEncoderPose() < -70 ){
         driveTrain.stopmotors();
         driveTrain.SetMotorMode(0);
       }
@@ -51,7 +51,7 @@ public class AutoShoot2 extends CommandBase {
       shooter.ShootBallSpeed1(Constants.ShooterSpeed1);
       intake.FeedBall(Constants.BrushsSpeed, Constants.FeederSpeed);
       camera.AutoTrack();
-      if(driveTrain.GetLeftMasterEncoderPose()/ Constants.EncoderConstant < -70 ){
+      if(driveTrain.GetLeftMasterEncoderPose() < -70 ){
         driveTrain.stopmotors();
         driveTrain.SetMotorMode(0);
       }

@@ -94,8 +94,8 @@ public class DriveTrain extends SubsystemBase {
 
     pose = Odometry.update(
     Robot.getHeading(),
-    Units.inchesToMeters(GetLeftMasterEncoderPose()/Constants.EncoderConstant),
-    Units.inchesToMeters(GetRightMasterEncoderPose()/Constants.EncoderConstant)
+    GetLeftMasterEncoderPose(),
+    GetRightMasterEncoderPose()
     );
   }
   public void resetOdometry(Pose2d pose2D) {
@@ -108,8 +108,8 @@ public class DriveTrain extends SubsystemBase {
 
   public DifferentialDriveWheelSpeeds getSpeeds() {
    return new DifferentialDriveWheelSpeeds(
-    leftMaster.getSelectedSensorVelocity() / 9.23 * 2 * Math.PI * Units.inchesToMeters(Constants.WheelDiameter/2) / 60,
-    rightMaster.getSelectedSensorVelocity() / 9.23* 2 * Math.PI * Units.inchesToMeters(Constants.WheelDiameter/2) / 60
+    leftMaster.getSelectedSensorVelocity() / Constants.GearRatio * 2 * Math.PI * Units.inchesToMeters(Constants.WheelRadiusInches) / 60,
+    rightMaster.getSelectedSensorVelocity() / Constants.GearRatio * 2 * Math.PI * Units.inchesToMeters(Constants.WheelRadiusInches) / 60
    );
   }
 
@@ -206,11 +206,11 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public double GetLeftMasterEncoderPose() {
-    return leftMaster.getSelectedSensorPosition();
+    return nativeUnitsToDistanceMeters(leftMaster.getSelectedSensorPosition());
   }
 
   public double GetRightMasterEncoderPose() {
-    return rightMaster.getSelectedSensorPosition();
+    return nativeUnitsToDistanceMeters(rightMaster.getSelectedSensorPosition());
   }
 
   public double GetLeftMasterEncoderSpeed() {
@@ -226,6 +226,10 @@ public class DriveTrain extends SubsystemBase {
     rightMaster.setSelectedSensorPosition(0);
   }
 
+  /**sets neutral mode
+   * 
+   * @param mode 1 = coast, 0 = brake
+   */
   public void SetMotorMode(double mode){
     if(mode==1){
 
@@ -243,6 +247,11 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
-  
+  private double nativeUnitsToDistanceMeters(double sensorCounts){
+    double motorRotations = (double)sensorCounts / 2048;
+    double wheelRotations = motorRotations / Constants.GearRatio;
+    double positionMeters = wheelRotations * (2 * Math.PI * Units.inchesToMeters(Constants.WheelRadiusInches));
+    return positionMeters;
+  }
   
 }

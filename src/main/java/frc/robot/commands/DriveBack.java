@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 
 public class DriveBack extends CommandBase {
@@ -22,10 +21,10 @@ public class DriveBack extends CommandBase {
   @Override
   public void initialize() {
     driveTrain.ClearDriveEncoders();
-    while(driveTrain.GetLeftMasterEncoderPose()/ Constants.EncoderConstant > -70 ){
+    while(driveTrain.GetLeftMasterEncoderPose()> -70 ){
       driveTrain.Drive(-.2, -.2);
     }
-    while(driveTrain.GetLeftMasterEncoderPose()/ Constants.EncoderConstant < -70 ){
+    while(driveTrain.GetLeftMasterEncoderPose() < -70 ){
       driveTrain.stopmotors();
       driveTrain.SetMotorMode(0);
       finish = true;

@@ -76,8 +76,8 @@ public class RobotContainer {
   //objects
   public static Joystick driverJoystick;
   public static Joystick manipulatorJoystick;
-  SendableChooser<String> AutoChooser;
-  static SendableChooser<Boolean> timerChooser;
+  public static SendableChooser<String> AutoChooser;
+  public static SendableChooser<Boolean> timerChooser;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
