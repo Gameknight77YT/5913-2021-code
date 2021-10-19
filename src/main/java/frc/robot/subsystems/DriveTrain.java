@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpiutil.math.MathUtil;
@@ -32,7 +33,7 @@ public class DriveTrain extends SubsystemBase {
   SpeedControllerGroup leftMotors = new SpeedControllerGroup(leftMaster, leftSlave);
   SpeedControllerGroup rightMotors = new SpeedControllerGroup(rightMaster, rightSlave);
 
-  //DifferentialDrive robotDrive = new DifferentialDrive(leftMaster, rightMaster);
+  //DifferentialDrive robotDrive = new DifferentialDrive(leftMaster,rightMaster);
 
   DifferentialDriveKinematics Kinematics = new DifferentialDriveKinematics(Constants.WheelBaseWith);
   DifferentialDriveOdometry Odometry = new DifferentialDriveOdometry(Robot.getHeading());
@@ -43,41 +44,41 @@ public class DriveTrain extends SubsystemBase {
   PIDController rightPidController = new PIDController(Constants.kp, Constants.ki, Constants.kd);
 
   Pose2d pose = new Pose2d();
-  
+
   /** Creates a new DriveTrain. */
   public DriveTrain() {
 
-  //slave setups
-  //leftSlave.follow(leftMaster);
-  //rightSlave.follow(rightMaster);
+    // slave setups
+    // leftSlave.follow(leftMaster);
+    // rightSlave.follow(rightMaster);
 
-  //invert setup
-  leftMaster.setInverted(false);
-  leftSlave.setInverted(false);
-  rightSlave.setInverted(true);
-  rightMaster.setInverted(true);
+    // invert setup
+    leftMaster.setInverted(false);
+    leftSlave.setInverted(false);
+    rightSlave.setInverted(true);
+    rightMaster.setInverted(true);
 
-  //init encoders
-  leftMaster.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-  rightMaster.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    // init encoders
+    leftMaster.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    rightMaster.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
 
-  leftMaster.clearStickyFaults(10);
-  rightMaster.clearStickyFaults(10);
+    leftMaster.clearStickyFaults(10);
+    rightMaster.clearStickyFaults(10);
 
-  leftMaster.configOpenloopRamp(1);
-  rightMaster.configOpenloopRamp(1);
-  leftSlave.configOpenloopRamp(1);
-  rightSlave.configOpenloopRamp(1);
+    leftMaster.configOpenloopRamp(1);
+    rightMaster.configOpenloopRamp(1);
+    leftSlave.configOpenloopRamp(1);
+    rightSlave.configOpenloopRamp(1);
 
-  leftMaster.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 45, 175, 5));
-  rightMaster.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 45, 175, 5));
-  leftSlave.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 45, 175, 5));
-  rightSlave.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 45, 175, 5));
+    leftMaster.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 45, 175, 5));
+    rightMaster.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 45, 175, 5));
+    leftSlave.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 45, 175, 5));
+    rightSlave.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 45, 175, 5));
 
-  //leftMaster.setSafetyEnabled(false);
-  //rightMaster.setSafetyEnabled(false);
-  //leftSlave.setSafetyEnabled(false);
-  //rightSlave.setSafetyEnabled(false);
+    // leftMaster.setSafetyEnabled(false);
+    // rightMaster.setSafetyEnabled(false);
+    // leftSlave.setSafetyEnabled(false);
+    // rightSlave.setSafetyEnabled(false);
 
   }
 
@@ -103,9 +104,6 @@ public class DriveTrain extends SubsystemBase {
     Odometry.resetPosition(pose2D, Robot.getRotation2d());
   }
   
-
-  
-
   public DifferentialDriveWheelSpeeds getSpeeds() {
    return new DifferentialDriveWheelSpeeds(
     leftMaster.getSelectedSensorVelocity() / Constants.GearRatio * 2 * Math.PI * Units.inchesToMeters(Constants.WheelRadiusInches) / 60,

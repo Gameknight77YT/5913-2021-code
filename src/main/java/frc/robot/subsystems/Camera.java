@@ -63,8 +63,8 @@ public class Camera extends SubsystemBase {
 
     double distAngle = (20 + y);
     Distance = (Units.feetToMeters(8.1875) - Units.feetToMeters(2.25)) / (Math.tan(distAngle));
-    SmartDashboard.putNumber("DistanceMeters", Distance);
-    SmartDashboard.putNumber("DistanceFeet", Units.metersToFeet(Distance));
+    //SmartDashboard.putNumber("DistanceMeters", Distance);
+    //SmartDashboard.putNumber("DistanceFeet", Units.metersToFeet(Distance));
 
 
     limelightTracking();
@@ -139,6 +139,7 @@ public class Camera extends SubsystemBase {
         
       
     } 
+
 }
       
 
