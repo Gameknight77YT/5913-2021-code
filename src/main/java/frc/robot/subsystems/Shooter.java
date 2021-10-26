@@ -53,7 +53,7 @@ public class Shooter extends SubsystemBase {
     //SmartDashboard.putNumber("TopShooter Speed", topShooter.getSelectedSensorVelocity());
   }
 
-  public void ShootBallAutoSpeed(){
+  /*public void ShootBallAutoSpeed(){
     double Speed;
     double MinSpeed = 20900;
     double MaxSpeed = 23500;
@@ -65,7 +65,7 @@ public class Shooter extends SubsystemBase {
 
     mainShooter.set(ControlMode.Velocity, Speed);
     topShooter.set(ControlMode.Velocity, Speed);
-  }
+  }*/
 
   /** Shoots Ball with Speed Preset 1  */
   public void ShootBallSpeed1(Double speed) {
@@ -83,6 +83,12 @@ public class Shooter extends SubsystemBase {
   public void ShootBallSpeed3(double speed) {
     mainShooter.set(ControlMode.Velocity, speed);
     topShooter.set(ControlMode.Velocity, speed *-1);
+  }
+
+  /** Shoots Ball with Speed Preset 4  */
+  public void ShootBallSpeed4(double speed) {
+    mainShooter.set(ControlMode.Velocity, speed);
+    topShooter.set(ControlMode.Velocity, (speed *-1)+500);
   }
 
   /** Stops Shooter */

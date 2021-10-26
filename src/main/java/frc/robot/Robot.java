@@ -155,11 +155,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     //driveTrain.DriveWithJoystick(RobotContainer.driverJoystick);
-    if(RobotContainer.driverJoystick.getRawButton(12)){
+    /*if(RobotContainer.driverJoystick.getRawButton(12)){
       driveTrain.SetMotorMode(0);
     }else{
       driveTrain.SetMotorMode(1);
-    }
+    }*/
   }
 
   @Override

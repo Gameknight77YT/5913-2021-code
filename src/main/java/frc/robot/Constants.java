@@ -67,7 +67,8 @@ public final class Constants {
   public static final double ShooterSpeed1 = 20900;// 7
   public static final double ShooterSpeed2 = 22000;// 9
   public static final double ShooterSpeed3 = 23500;// 11
-
+  public static final double ShooterSpeed4 = 27500;// 3
+  
   // encoder counts/ times
   public static final double AutoTrackTime = 1.5;// keep this equal to the ShooterSpinupTime
   public static final double ShooterSpinupTime = 1.5;// keep this equal to the AutoTrackTime
@@ -101,7 +102,7 @@ public final class Constants {
 
   // other constants
   public static final double WheelRadiusInches = 3;
-  //public static final double EncoderConstant = 668.897;
+  public static final double EncoderConstant = 668.897;
   public static final double GearRatio = 14.014;
 
 }

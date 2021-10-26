@@ -27,7 +27,7 @@ import frc.robot.commands.IntakeBall;
 import frc.robot.commands.ShootBall1;
 import frc.robot.commands.ShootBall2;
 import frc.robot.commands.ShootBall3;
-import frc.robot.commands.ShootBallAuto;
+import frc.robot.commands.ShootBall4;
 import frc.robot.commands.SpitOutBall;
 import frc.robot.commands.Test;
 import frc.robot.commands.TrackTarget;
@@ -62,7 +62,7 @@ public class RobotContainer {
   private final ShootBall1 shootball1;
   private final ShootBall2 shootball2;
   private final ShootBall3 shootball3;
-  private final ShootBallAuto shootballAuto;
+  private final ShootBall4 shootball4;
   private final AutoShoot1 autoshoot1;
   private final AutoShoot2 autoshoot2;
   private final IntakeArmsUp intakeArmsUp;
@@ -119,8 +119,8 @@ public class RobotContainer {
     shootball2.addRequirements(shooter);
     shootball3 = new ShootBall3(shooter);
     shootball3.addRequirements(shooter);
-    shootballAuto = new ShootBallAuto(shooter);
-    shootballAuto.addRequirements(shooter);
+    shootball4 = new ShootBall4(shooter);
+    shootball4.addRequirements(shooter);
     feedball = new FeedBall(intake);
     feedball.addRequirements(intake);
     autoshoot1 = new AutoShoot1(shooter, intake, camera);
@@ -192,7 +192,7 @@ public class RobotContainer {
     ShootBall3Button.whileHeld(new ShootBall3(shooter));//shoot ball speed3
 
     JoystickButton ShootBall4Button = new JoystickButton(manipulatorJoystick, Constants.ShootBall4ButtonID);
-    ShootBall4Button.whileHeld(new ShootBallAuto(shooter));//shoot ball Auto
+    ShootBall4Button.whileHeld(new ShootBall4(shooter));//shoot ball Auto
 
     JoystickButton FeederButton = new JoystickButton(manipulatorJoystick, Constants.FeederButtonID);
     FeederButton.whileHeld(new FeedBall(intake));//feed ball into shooter

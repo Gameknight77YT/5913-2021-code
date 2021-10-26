@@ -88,11 +88,13 @@ public class DriveTrain extends SubsystemBase {
     GetLeftMasterEncoderSpeed();
     GetRightMasterEncoderPose();
     GetLeftMasterEncoderPose();
-    //SmartDashboard.putNumber("LeftEncoderPose", GetLeftMasterEncoderPose()/Constants.EncoderConstant);
+    SmartDashboard.putNumber("LeftEncoderPoseOLD", leftMaster.getSelectedSensorPosition()/Constants.EncoderConstant);
+    SmartDashboard.putNumber("LeftEncoderPoseNEW", GetLeftMasterEncoderPose());
     //SmartDashboard.putNumber("RightEncoderPose", GetRightMasterEncoderPose()/Constants.EncoderConstant);
     //SmartDashboard.putNumber("LeftEncoderSpeed", GetLeftMasterEncoderSpeed());
     //SmartDashboard.putNumber("RightEncoderSpeed", GetRightMasterEncoderSpeed());
 
+    
     pose = Odometry.update(
     Robot.getHeading(),
     GetLeftMasterEncoderPose(),
